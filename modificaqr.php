@@ -1,73 +1,11 @@
 <html>
 
-<head>
-<?php
-include "qrcode.php";
+<?php 
 
-
-
-if(isset($_POST['sbt-btn'])){
-
-///////////////////////////////// INIZIO UPLOAD FILE PDF ////////////////////
-
-   // Process the uploaded file
-   if (isset($_FILES['file']) && $_FILES['file']['error'] === UPLOAD_ERR_OK) {
-    $fileName = $_POST['descrizione'].".pdf";
-    $tmpFilePath = $_FILES['file']['tmp_name'];
-
-    // Validate file extension (ensure it's a PDF)
-    $allowedExtensions = array('pdf');
-    $fileExtension = pathinfo($fileName, PATHINFO_EXTENSION);
-    if (!in_array(strtolower($fileExtension), $allowedExtensions)) {
-        echo 'Invalid file extension. Only PDF files are allowed.';
-        exit;
-    }
-
-    // Sanitize the filename (remove any special characters)
-    $sanitizedFileName = preg_replace('/[^a-zA-Z0-9-_.]/', '', $fileName);
-
-    // Construct the new file path in the upload directory
-    $uploadDirectory = './pdf/'; // Replace with your actual directory path
-    $newFilePath = $uploadDirectory . $sanitizedFileName;
-
-    // Move the uploaded file to the specified directory
-    if (move_uploaded_file($tmpFilePath, $newFilePath)) {
-       // echo 'PDF file uploaded and moved successfully.';
-    } else {
-      //  echo 'Error uploading the PDF file.';
-    }
-} else {
-    // Handle no file uploaded or upload error scenario
-    if ($_FILES['file']['error'] !== UPLOAD_ERR_OK) {
-      //  $errorMessage = 'An error occurred during file upload. Error code: ' . $_FILES['file']['error'];
-    } else {
-       // $errorMessage = 'No PDF file uploaded.';
-    }
-    //echo $errorMessage;
-}
-
-
-///////////////////////////////// FINE UPLOAD FILE PDF ////////////////////
-
-//$fileName = pathinfo($_FILES['file']['name'], PATHINFO_FILENAME);
-$pdfDaVisualizzare=$_POST['descrizione'].".pdf";
-
-    CreateQR($_POST['descrizione'],$pdfDaVisualizzare);
-}
-
-
+include "./qrcode.php";
 ?>
 
-
-
-
-
-
-
-
-
-
-
+<head>
     <html>
 
     <head>
@@ -104,6 +42,9 @@ $pdfDaVisualizzare=$_POST['descrizione'].".pdf";
         </div>
     </nav>
     <div class="uk-container uk-background-muted uk-padding uk-panel">
+
+    <?php estraiQrCodePerModifica();?>
+
     </div>
 
 

@@ -84,4 +84,156 @@ function estraiQrCode(){
 	}
 
 }
+
+
+
+
+
+
+function estraiQrCodePerModifica(){
+	require_once 'connection.php';
+	require_once 'phpqrcode/qrlib.php';
+
+	if(isset($_POST['edit'])){
+		
+///////////////////////////////// INIZIO UPLOAD FILE PDF ////////////////////
+
+   // Process the uploaded file
+   if (isset($_FILES['file']) && $_FILES['file']['error'] === UPLOAD_ERR_OK) {
+    $fileName = $_POST['descrizione'].".pdf";
+    $tmpFilePath = $_FILES['file']['tmp_name'];
+
+    // Validate file extension (ensure it's a PDF)
+    $allowedExtensions = array('pdf');
+    $fileExtension = pathinfo($fileName, PATHINFO_EXTENSION);
+    if (!in_array(strtolower($fileExtension), $allowedExtensions)) {
+        echo 'Invalid file extension. Only PDF files are allowed.';
+        exit;
+    }
+
+    // Sanitize the filename (remove any special characters)
+    $sanitizedFileName = preg_replace('/[^a-zA-Z0-9-_.]/', '', $fileName);
+
+    // Construct the new file path in the upload directory
+    $uploadDirectory = './pdf/'; // Replace with your actual directory path
+    $newFilePath = $uploadDirectory . $sanitizedFileName;
+
+    // Move the uploaded file to the specified directory
+    if (move_uploaded_file($tmpFilePath, $newFilePath)) {
+       // echo 'PDF file uploaded and moved successfully.';
+    } else {
+      //  echo 'Error uploading the PDF file.';
+    }
+} else {
+    // Handle no file uploaded or upload error scenario
+    if ($_FILES['file']['error'] !== UPLOAD_ERR_OK) {
+      //  $errorMessage = 'An error occurred during file upload. Error code: ' . $_FILES['file']['error'];
+    } else {
+       // $errorMessage = 'No PDF file uploaded.';
+    }
+    //echo $errorMessage;
+}
+
+
+///////////////////////////////// FINE UPLOAD FILE PDF ////////////////////
+
+//$fileName = pathinfo($_FILES['file']['name'], PATHINFO_FILENAME);
+$pdfDaVisualizzare=$_POST['descrizione'].".pdf";
+
+    EditQR($_POST['descrizione'],$pdfDaVisualizzare,$_POST['mod']);
+	}
+
+
+
+
+
+	$query = mysqli_query($connection,"SELECT * FROM qrcode");
+
+
+	foreach($query as $raw){
+		echo"
+		<form method='post' enctype='multipart/form-data'>
+		<article class='uk-comment uk-comment-primary' role='comment'>
+		<header class='uk-comment-header'>
+		  <div class='uk-grid-medium uk-flex-middle' uk-grid>
+			<div class='uk-width-auto'>
+			  <img class='immagine' class='uk-comment-avatar' src='images/{$raw['qrimage']}' width='200' height='300' alt=''>
+			</div>
+			<div class='uk-width-expand'>
+
+			  <ul class='uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top'>
+				<li><h2><font sice='100px'><strong>{$raw['descrizione']}</strong></font></h2></li>
+				<li> <iframe src='./pdf/{$raw['fileDirectory']}' width='300' height='200'></iframe></li>
+				<li><button type='submit' name='edit' value='edit' class='uk-button uk-button-primary'><font color='black'>Edit</font></button></li>
+				<li><input type='hidden' name='mod' value='{$raw['id']}'></li>
+			  </ul>
+			</div>
+			
+			<fieldset class='uk-fieldset'>
+
+			<legend class='uk-legend'>MODIFICA QR-CODE</legend>
+			<div class='uk-margin'>
+				<input class='uk-input' type='text' placeholder='Inserisci Numero' name='descrizione'aria-label='Input' required data-parsley-pattern='^[a-zA-Z]+$' data-parsley-trigger='keyup'>
+			</div>
+	<input type='file' name='file' required>
+	
+
+<progress id='js-progressbar' class='uk-progress' value='0' max='100' hidden></progress>
+		</fieldset>
+
+
+
+
+
+
+
+
+
+		  </div>
+		</header>
+	  </article>
+	  </form>
+	  <hr class='uk-divider-icon'>
+		";
+
+
+
+
+
+	}
+}
+
+
+
+
+
+function EditQR($descrizione,$NameFile,$id){
+	require_once 'connection.php';
+	require_once 'phpqrcode/qrlib.php';
+
+$puntamento="http://10.108.102.96/pdf/".$NameFile;
+
+
+	$path = 'images/';
+	$qrcode = $path.$NameFile.".png";
+	$qrimage = $NameFile.".png";
+	
+	if(isset($_POST['sbt-btn']))
+//fare update poi la parte admin è finita
+	{
+		$query = mysqli_query($connection,"");
+		if($query)
+		{
+			?>
+			<script>
+				alert("QR CODE - Aggiornato correttamente");
+			</script>
+			<?php
+		}
+	}
+
+
+	
+	QRcode :: png($puntamento, $qrcode, 'H',4 , 4);
+}
 ?>
