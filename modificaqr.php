@@ -92,8 +92,8 @@ $pdfDaVisualizzare=$_POST['descrizione'].".pdf";
                             <a href="#">Amministratore</a>
                             <div class="uk-navbar-dropdown">
                                 <ul class="uk-nav uk-navbar-dropdown-nav">
-                                    <li class="uk-active"><a href="#">CREA-QR</a></li>
-                                    <li><a href="modificaqr.php">MODIFICA-QR</a></li>
+                                    <li><a href="#">CREA-QR</a></li>
+                                    <li class="uk-active"><a href="modificaqr.php">MODIFICA-QR</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -104,35 +104,6 @@ $pdfDaVisualizzare=$_POST['descrizione'].".pdf";
         </div>
     </nav>
     <div class="uk-container uk-background-muted uk-padding uk-panel">
-
-
-        <form method="post" enctype="multipart/form-data">
-            <fieldset class="uk-fieldset">
-
-                <legend class="uk-legend">Crea QR-CODE</legend>
-                <div class="uk-margin">
-                    <input class="uk-input" type="text" placeholder="Inserisci Numero Procedura (senza spazi)" name="descrizione"
-                        aria-label="Input" required data-parsley-pattern="^[a-zA-Z]+$" data-parsley-trigger="keyup">
-                </div>
-        <input type="file" name="file" required>
-        
-
-<progress id="js-progressbar" class="uk-progress" value="0" max="100" hidden></progress>
-
-
-
-
-<div class="uk-margin" uk-margin>
-                    <input type="submit" name="sbt-btn" value="QR Generate" class="uk-button uk-button-default" />
-                </div>
-
-
-
-
-
-            </fieldset>
-        </form>
-
     </div>
 
 
