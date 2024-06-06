@@ -4,31 +4,35 @@
 
 
 
-
-function CreateQR($qrtext,$NameFile){
+//$qrtext=descrizione
+function CreateQR($descrizione,$NameFile){
 	require_once 'connection.php';
 	require_once 'phpqrcode/qrlib.php';
 
+$puntamento="http://10.108.102.96/pdf/".$NameFile;
+
+
 	$path = 'images/';
-	$qrcode = $path.time().".png";
-	$qrimage = time().".png";
+	$qrcode = $path.$NameFile.".png";
+	$qrimage = $NameFile.".png";
 	
-	if(isset($_REQUEST['sbt-btn']))
+	if(isset($_POST['sbt-btn']))
+
 	{
-		$qrtext = $_REQUEST['qrtext'];
-		$query = mysqli_query($connection,"insert into qrcode set qrtext='$qrtext', qrimage='$qrimage'");
+		$query = mysqli_query($connection,"insert into qrcode set qrtext='$puntamento', qrimage='$qrimage',descrizione=''");
 		if($query)
 		{
 			?>
 			<script>
-				alert("Data save successfully");
+				alert("QR CODE - Generato correttamente");
 			</script>
 			<?php
 		}
 	}
+
+
 	
-	QRcode :: png($qrtext, $qrcode, 'H',4 , 4);
-	echo "<img src='".$qrcode."'>";
+	QRcode :: png($puntamento, $qrcode, 'H',4 , 4);
 }
 
 ?>

@@ -1,48 +1,6 @@
 <html>
 
 <head>
-    <!--
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-      <link rel="stylesheet" type="text/css" href="css/style.css/">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>  
-    -->
-
-
-
-    <!--
-    <title>Qr Generation Form</title>  
-
-
-    <link rel="stylesheet" type="text/css" href="css/uikit-rtl.css/">
-    <link rel="stylesheet" type="text/css" href="css/uikit-rtl.min.css/">
-    <link rel="stylesheet" type="text/css" href="css/uikit.css/">
-    <link rel="stylesheet" type="text/css" href="css/uikit.min.css/">
-    <script src="js/uikit-icons.js"></script>
-    <script src="js/uikit-icons.min.js"></script>
-    <script src="js/uikit.js"></script>
-    <script src="js/uikit.min.js"></script>
-</head>
-<body>  
-  <div class="container">          
-   <div class="table-responsive">  
-    <h3 align="center">QR Generation Form</h3><br/>
-    <div class="box">
-     <form method="post" action="qrcode.php" > 
-      <div class="form-group">
-         <label>QR Text</label>
-         <input type="text" name="qrtext" id="qrtext" placeholder="Enter QR Text" required data-parsley-pattern="^[a-zA-Z]+$" data-parsley-trigger="keyup" class="form-control" />
-      </div>
-      <div class="form-group">
-       <input type="submit" name="sbt-btn" value="QR Generate" class="btn btn-success" />
-      </div>
-     </form>
-    </div>
-   </div>  
-  </div>
- </body>  
-</html>  -->
-
-
 <?php
 include "qrcode.php";
 
@@ -54,7 +12,7 @@ if(isset($_POST['sbt-btn'])){
 
    // Process the uploaded file
    if (isset($_FILES['file']) && $_FILES['file']['error'] === UPLOAD_ERR_OK) {
-    $fileName = $_FILES['file']['name'];
+    $fileName = $_POST['descrizione'].".pdf";
     $tmpFilePath = $_FILES['file']['tmp_name'];
 
     // Validate file extension (ensure it's a PDF)
@@ -91,9 +49,10 @@ if(isset($_POST['sbt-btn'])){
 
 ///////////////////////////////// FINE UPLOAD FILE PDF ////////////////////
 
+//$fileName = pathinfo($_FILES['file']['name'], PATHINFO_FILENAME);
+$pdfDaVisualizzare=$_POST['descrizione'].".pdf";
 
-    //genera qr
-    //CreateQR($_POST['qrtext'],$_POST['file']);
+    CreateQR($_POST['descrizione'],$pdfDaVisualizzare);
 }
 
 
@@ -152,7 +111,7 @@ if(isset($_POST['sbt-btn'])){
 
                 <legend class="uk-legend">Crea QR-CODE</legend>
                 <div class="uk-margin">
-                    <input class="uk-input" type="text" placeholder="Inserisci un nome tutto attaccato" name="qrtext"
+                    <input class="uk-input" type="text" placeholder="Inserisci Numero Procedura (senza spazi)" name="descrizione"
                         aria-label="Input" required data-parsley-pattern="^[a-zA-Z]+$" data-parsley-trigger="keyup">
                 </div>
         <input type="file" name="file" required>
