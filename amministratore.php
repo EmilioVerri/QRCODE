@@ -1,3 +1,14 @@
+<?php
+session_start();
+?>
+
+<?php
+
+if ($_SESSION['logged_in']==false) {
+  header('Location: index.php');
+  exit();
+}?>
+
 <html>
 
 <head>
@@ -63,20 +74,6 @@ $pdfDaVisualizzare=$_POST['descrizione'].".pdf";
 
 
 ?>
-
-
-
-
-
-
-
-
-
-
-
-    <html>
-
-    <head>
         <title>Qr Generation Form</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -93,16 +90,17 @@ $pdfDaVisualizzare=$_POST['descrizione'].".pdf";
                 <div class="uk-navbar-left">
 
                     <ul class="uk-navbar-nav">
-                        <li><a href="index.php">Home</a></li>
                         <li class="uk-active">
                             <a href="#">Amministratore</a>
                             <div class="uk-navbar-dropdown">
                                 <ul class="uk-nav uk-navbar-dropdown-nav">
                                     <li class="uk-active"><a href="#">CREA-QR</a></li>
                                     <li><a href="modificaqr.php">MODIFICA-QR</a></li>
+                                    <li><a href="rimuoviQR.php">RIMUOVI-QR</a></li>
                                 </ul>
                             </div>
                         </li>
+                        <li><a href="logout.php">Logout</a></li>
                     </ul>
 
                 </div>
@@ -148,3 +146,6 @@ $pdfDaVisualizzare=$_POST['descrizione'].".pdf";
 </body>
 
 </html>
+
+
+
