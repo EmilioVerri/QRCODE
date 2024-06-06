@@ -50,7 +50,7 @@ include "./qrcode.php";
 
 
 
-
+    <div class="uk-position-bottom-right uk-overlay uk-overlay-default"><img class='uk-comment-avatar' src='./images/logo.png' width='200' height='300' alt=''></div>
 </body>
 
 </html>
