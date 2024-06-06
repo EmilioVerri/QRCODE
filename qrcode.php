@@ -91,6 +91,7 @@ function estraiQrCode(){
 
 
 function estraiQrCodePerModifica(){
+
 	require_once 'connection.php';
 	require_once 'phpqrcode/qrlib.php';
 
@@ -208,8 +209,16 @@ $pdfDaVisualizzare=$_POST['descrizione'].".pdf";
 
 
 function EditQR($descrizione,$NameFile,$id){
-	require_once 'connection.php';
-	require_once 'phpqrcode/qrlib.php';
+	$server = "localhost";
+$username = "root";
+$password = "";
+$database = "college_db";
+$connection = mysqli_connect("$server","$username","$password");
+$select_db = mysqli_select_db($connection, $database);
+if(!$select_db)
+{
+	echo("connection terminated");
+}
 
 $puntamento="http://10.108.102.96/pdf/".$NameFile;
 
@@ -218,10 +227,10 @@ $puntamento="http://10.108.102.96/pdf/".$NameFile;
 	$qrcode = $path.$NameFile.".png";
 	$qrimage = $NameFile.".png";
 	
-	if(isset($_POST['sbt-btn']))
-//fare update poi la parte admin è finita
-	{
-		$query = mysqli_query($connection,"");
+	if(isset($_POST['mod'])){//fare update poi la parte admin è finita
+
+
+		$query = mysqli_query($connection,"UPDATE qrcode SET qrtext='$puntamento', qrimage='$qrimage',descrizione='$descrizione',fileDirectory='$NameFile' WHERE id='{$id}'");
 		if($query)
 		{
 			?>
