@@ -9,14 +9,18 @@ if ($_SESSION['logged_in']==false) {
   exit();
 }?>
 
+
+
 <html>
 
 <?php 
 
 include "./qrcode.php";
+
 ?>
 
 <head>
+
         <title>Qr Generation Form</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -33,15 +37,14 @@ include "./qrcode.php";
                 <div class="uk-navbar-left">
 
                     <ul class="uk-navbar-nav">
-                        
                         <li class="uk-active">
                             <a href="#">Amministratore</a>
                             <div class="uk-navbar-dropdown">
                                 <ul class="uk-nav uk-navbar-dropdown-nav">
                                     <li><a href="amministratore.php">CREA-QR</a></li>
                                     <li><a href="modificaqr.php">MODIFICA-QR</a></li>
-                                    <li class="uk-active"><a href="rimuoviQR.php">RIMUOVI-QR</a></li>
-                                    <li><a href="stampaQRCode.php">STAMPA-QR</a></li>
+                                    <li><a href="rimuoviQR.php">RIMUOVI-QR</a></li>
+                                    <li class="uk-active"><a href="stampaQRCode.php">STAMPA-QR</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -53,8 +56,8 @@ include "./qrcode.php";
         </div>
     </nav>
     <div class="uk-container uk-background-muted uk-padding uk-panel">
-
-    <?php estraiQrCode();?>
+    <button type='submit' name='stampaTUTTO' value='stampaTUTTO' class='uk-button uk-button-primary'><font color='black'>Stampa Tutto</font></button>
+    <?php estraiQrCodePerStampa();?>
 
     </div>
 

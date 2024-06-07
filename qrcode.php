@@ -249,4 +249,91 @@ $puntamento="http://10.108.102.96/pdf/".$NameFile;
 	
 	QRcode :: png($puntamento, $qrcode, 'H',4 , 4);
 }
+
+
+
+function estraiQrCodePerStampa(){
+	require('.\libreriaPDF\pdf\fpdf.php');
+	require_once 'connection.php';
+	require_once 'phpqrcode/qrlib.php';
+
+
+	if(isset($_POST['print'])){
+		$infoQuery = mysqli_query($connection,"SELECT * FROM qrcode WHERE id='{$_POST['print']}'");
+		foreach($infoQuery as $raw){
+			$pathimage="images/".$raw['qrimage'];
+			$immagine = $pathimage; // Percorso dell'immagine
+
+
+
+	// Create a new PDF object
+$pdf = new FPDF();
+
+// Add a new page to the PDF
+$pdf->AddPage();
+
+// Load the image and position it on the PDF
+$pdf->Image($immagine, 10, 10, 100, 100);
+
+// Create a container for the image and text (Optional)
+echo '<div class="image-container">'; // Add this line if using HTML/CSS
+$descrizione=$raw['descrizione'];
+// Add the text with "Hello" next to the image
+$pdf->SetTextColor(0, 0, 0); // Set text color to black
+$pdf->SetFont('Arial', 'B', 12); // Set font to Arial bold 12pt
+$pdf->SetXY(170, 30); // Set text position (X: 170 from left, Y: 30 from top)
+$pdf->Cell(0, 10, $descrizione, 0, 0, 'L'); // Write the text
+
+// Generate the PDF
+$pdf->Output('immagine.pdf', 'F');
+
+echo '<script>window.open("immagine.pdf", "_blank");</script>'; // Open the PDF in a new tab (Optional)
+
+// Add the closing div tag (Optional)
+echo '</div>'; // Add this line if using HTML/CSS
+		}
+	}
+
+	
+
+
+	$query = mysqli_query($connection,"SELECT * FROM qrcode");
+
+
+	foreach($query as $raw){
+		echo"
+		<form method='post' enctype='multipart/form-data'>
+		<article class='uk-comment uk-comment-primary' role='comment'>
+		<header class='uk-comment-header'>
+		  <div class='uk-grid-medium uk-flex-middle' uk-grid>
+			<div class='uk-width-auto'>
+			  <img class='immagine' class='uk-comment-avatar' src='images/{$raw['qrimage']}' width='200' height='300' alt=''>
+			</div>
+			<div class='uk-width-expand'>
+
+			  <ul class='uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top'>
+				<li><h2><font sice='100px'><strong>{$raw['descrizione']}</strong></font></h2></li>
+				<li> <iframe src='./pdf/{$raw['fileDirectory']}' width='300' height='200'></iframe></li>
+				<li><button type='submit' name='stampa' value='stampa' class='uk-button uk-button-primary'><font color='black'>Stampa</font></button></li>
+				<li><input type='hidden' name='print' value='{$raw['id']}'></li>
+			  </ul>
+			</div>
+			
+			<fieldset class='uk-fieldset'>
+
+<progress id='js-progressbar' class='uk-progress' value='0' max='100' hidden></progress>
+		</fieldset>
+		  </div>
+		</header>
+	  </article>
+	  </form>
+	  <hr class='uk-divider-icon'>
+		";
+
+
+
+
+
+	}
+}
 ?>

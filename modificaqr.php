@@ -43,6 +43,7 @@ include "./qrcode.php";
                                     <li><a href="amministratore.php">CREA-QR</a></li>
                                     <li class="uk-active"><a href="modificaqr.php">MODIFICA-QR</a></li>
                                     <li><a href="rimuoviQR.php">RIMUOVI-QR</a></li>
+                                    <li><a href="stampaQRCode.php">STAMPA-QR</a></li>
                                 </ul>
                             </div>
                         </li>
