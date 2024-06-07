@@ -260,6 +260,7 @@ function estraiQrCodePerStampa(){
 
 	if(isset($_POST['print'])){
 		$infoQuery = mysqli_query($connection,"SELECT * FROM qrcode WHERE id='{$_POST['print']}'");
+		$pdf = new FPDF();
 		foreach($infoQuery as $raw){
 			$pathimage="images/".$raw['qrimage'];
 			$immagine = $pathimage; // Percorso dell'immagine
@@ -267,13 +268,13 @@ function estraiQrCodePerStampa(){
 
 
 	// Create a new PDF object
-$pdf = new FPDF();
+
 
 // Add a new page to the PDF
 $pdf->AddPage();
 
 // Load the image and position it on the PDF
-$pdf->Image($immagine, 10, 10, 100, 100);
+$pdf->Image($immagine, 50, 100, 100, 100);
 
 // Create a container for the image and text (Optional)
 echo '<div class="image-container">'; // Add this line if using HTML/CSS
@@ -281,7 +282,7 @@ $descrizione=$raw['descrizione'];
 // Add the text with "Hello" next to the image
 $pdf->SetTextColor(0, 0, 0); // Set text color to black
 $pdf->SetFont('Arial', 'B', 12); // Set font to Arial bold 12pt
-$pdf->SetXY(170, 30); // Set text position (X: 170 from left, Y: 30 from top)
+$pdf->SetXY(170, 120); // Set text position (X: 170 from left, Y: 30 from top)
 $pdf->Cell(0, 10, $descrizione, 0, 0, 'L'); // Write the text
 
 // Generate the PDF
@@ -292,6 +293,7 @@ echo '<script>window.open("immagine.pdf", "_blank");</script>'; // Open the PDF 
 // Add the closing div tag (Optional)
 echo '</div>'; // Add this line if using HTML/CSS
 		}
+
 	}
 
 	
@@ -334,6 +336,51 @@ echo '</div>'; // Add this line if using HTML/CSS
 
 
 
+	}
+}
+
+
+
+
+function estraiQrCodePerStampaMULTIPLA(){
+	require('.\libreriaPDF\pdf\fpdf.php');
+	require_once 'connection.php';
+	require_once 'phpqrcode/qrlib.php';
+
+
+	if(isset($_POST['stampaTUTTO'])){
+		$infoQuery = mysqli_query($connection,"SELECT * FROM qrcode");
+		$pdf = new FPDF();
+
+
+
+			// Create a new PDF object
+
+		foreach($infoQuery as $raw){
+			$pdf->AddPage();
+			$pathimage="images/".$raw['qrimage'];
+			$immagine = $pathimage; // Percorso dell'immagine
+// Load the image and position it on the PDF
+$pdf->Image($immagine, 50, 100, 100, 100);
+
+// Create a container for the image and text (Optional)
+echo '<div class="image-container">'; // Add this line if using HTML/CSS
+$descrizione=$raw['descrizione'];
+// Add the text with "Hello" next to the image
+$pdf->SetTextColor(0, 0, 0); // Set text color to black
+$pdf->SetFont('Arial', 'B', 12); // Set font to Arial bold 12pt
+$pdf->SetXY(170, 120); // Set text position (X: 170 from left, Y: 30 from top)
+$pdf->Cell(0, 10, $descrizione, 0, 0, 'L'); // Write the text
+
+
+		}
+			// Generate the PDF
+			$pdf->Output('immagine.pdf', 'F');
+
+			echo '<script>window.open("immagine.pdf", "_blank");</script>'; // Open the PDF in a new tab (Optional)
+			
+			// Add the closing div tag (Optional)
+			echo '</div>'; // Add this line if using HTML/CSS
 	}
 }
 ?>

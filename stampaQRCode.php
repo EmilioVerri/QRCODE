@@ -11,6 +11,12 @@ if ($_SESSION['logged_in']==false) {
 
 
 
+
+
+
+
+
+
 <html>
 
 <?php 
@@ -45,6 +51,7 @@ include "./qrcode.php";
                                     <li><a href="modificaqr.php">MODIFICA-QR</a></li>
                                     <li><a href="rimuoviQR.php">RIMUOVI-QR</a></li>
                                     <li class="uk-active"><a href="stampaQRCode.php">STAMPA-QR</a></li>
+                                    <li><a href="stampaTutto.php">STAMPA-TUTTI-QR</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -56,7 +63,6 @@ include "./qrcode.php";
         </div>
     </nav>
     <div class="uk-container uk-background-muted uk-padding uk-panel">
-    <button type='submit' name='stampaTUTTO' value='stampaTUTTO' class='uk-button uk-button-primary'><font color='black'>Stampa Tutto</font></button>
     <?php estraiQrCodePerStampa();?>
 
     </div>
@@ -64,7 +70,7 @@ include "./qrcode.php";
 
 
     <div class="uk-position-top-right uk-overlay uk-overlay-default"><img class='uk-comment-avatar' src='./images/logo.png' width='200' height='300' alt=''></div>
-    <div class="uk-position-bottom-right uk-overlay uk-overlay-default"><img class='uk-comment-avatar' src='./images/logo.png' width='200' height='300' alt=''></div>
+  
 </body>
 
 </html>

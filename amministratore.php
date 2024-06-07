@@ -98,6 +98,7 @@ $pdfDaVisualizzare=$_POST['descrizione'].".pdf";
                                     <li><a href="modificaqr.php">MODIFICA-QR</a></li>
                                     <li><a href="rimuoviQR.php">RIMUOVI-QR</a></li>
                                     <li><a href="stampaQRCode.php">STAMPA-QR</a></li>
+                                    <li><a href="stampaTutto.php">STAMPA-TUTTI-QR</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -143,7 +144,7 @@ $pdfDaVisualizzare=$_POST['descrizione'].".pdf";
 
 
     <div class="uk-position-top-right uk-overlay uk-overlay-default"><img class='uk-comment-avatar' src='./images/logo.png' width='200' height='300' alt=''></div>
-    <div class="uk-position-bottom-right uk-overlay uk-overlay-default"><img class='uk-comment-avatar' src='./images/logo.png' width='200' height='300' alt=''></div>
+  
 </body>
 
 </html>
