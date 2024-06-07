@@ -69,7 +69,7 @@ function estraiQrCode(){
 
 			  <ul class='uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top'>
 				<li><h2><font sice='100px'><strong>{$raw['descrizione']}</strong></font></h2></li>
-				<li> <iframe src='./pdf/{$raw['fileDirectory']}' width='600' height='400'></iframe></li>
+				<li> <iframe src='./pdf/{$raw['fileDirectory']}' width='500' height='300'></iframe></li>
 				<li><button type='submit' name='cancella' value='cancella' class='uk-button uk-button-danger'><font color='black'>Delete</font></button></li>
 				<li><input type='hidden' name='seleziona' value='{$raw['id']}'></li>
 			  </ul>
