@@ -4,6 +4,7 @@ session_start();
 
 <?php
 
+include "./puntamento.php";
 
 if (isset($_POST['login'])) {
     $server = "localhost";
@@ -32,8 +33,9 @@ if (isset($_POST['login'])) {
             
             $_SESSION['logged_in'] = true;
 
+            $redirect=puntamento();
             
-            $redirectURL = "http://10.108.102.96/amministratore.php";
+            $redirectURL = $redirect."/amministratore.php";
 
             header("Location: $redirectURL");
 

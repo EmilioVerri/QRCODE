@@ -4,6 +4,10 @@
 
 <?php
 
+include "./puntamento.php";
+
+
+
 
 
 
@@ -13,7 +17,9 @@ function CreateQR($descrizione,$NameFile){
 	require_once 'connection.php';
 	require_once 'phpqrcode/qrlib.php';
 
-$puntamento="http://10.108.102.96/pdf/".$NameFile;
+
+	$redirect=puntamento();
+$puntamento=$redirect."/pdf/".$NameFile;
 
 
 	$path = 'images/';
@@ -224,7 +230,9 @@ if(!$select_db)
 	echo("connection terminated");
 }
 
-$puntamento="http://10.108.102.96/pdf/".$NameFile;
+$redirect=puntamento();
+
+$puntamento=$redirect."/pdf/".$NameFile;
 
 
 	$path = 'images/';

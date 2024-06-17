@@ -2,6 +2,7 @@
 session_start();
 ?>
 
+
 <?php
 
 if ($_SESSION['logged_in']==false) {
@@ -12,8 +13,12 @@ if ($_SESSION['logged_in']==false) {
 
 <?php
 
+include "./puntamento.php";
+
+$redirect=puntamento();
+
 session_destroy();
-$redirectURL = "http://10.108.102.96/index.php";
+$redirectURL = $redirect."/index.php";
 
             header("Location: $redirectURL");
             $_SESSION['logged_in'] = false;
