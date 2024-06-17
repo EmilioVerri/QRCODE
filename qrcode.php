@@ -59,7 +59,7 @@ function estraiQrCode(){
 
 
 
-	$query = mysqli_query($connection,"SELECT * FROM qrcode");
+	$query = mysqli_query($connection,"SELECT * FROM qrcode ORDER BY descrizione ASC;");
 
 
 	foreach($query as $raw){
@@ -158,7 +158,7 @@ $pdfDaVisualizzare=$_POST['descrizione'].".pdf";
 
 
 
-	$query = mysqli_query($connection,"SELECT * FROM qrcode");
+	$query = mysqli_query($connection,"SELECT * FROM qrcode ORDER BY descrizione ASC;");
 
 
 	foreach($query as $raw){
@@ -267,7 +267,7 @@ function estraiQrCodePerStampa(){
 
 
 	if(isset($_POST['print'])){
-		$infoQuery = mysqli_query($connection,"SELECT * FROM qrcode WHERE id='{$_POST['print']}'");
+		$infoQuery = mysqli_query($connection,"SELECT * FROM qrcode WHERE id='{$_POST['print']}' ORDER BY descrizione ASC;");
 		$pdf = new FPDF();
 		foreach($infoQuery as $raw){
 			$pathimage="images/".$raw['qrimage'];
@@ -307,7 +307,7 @@ echo '</div>'; // Add this line if using HTML/CSS
 	
 
 
-	$query = mysqli_query($connection,"SELECT * FROM qrcode");
+	$query = mysqli_query($connection,"SELECT * FROM qrcode ORDER BY descrizione ASC;");
 
 
 	foreach($query as $raw){
@@ -357,7 +357,7 @@ function estraiQrCodePerStampaMULTIPLA(){
 
 
 	if(isset($_POST['stampaTUTTO'])){
-		$infoQuery = mysqli_query($connection,"SELECT * FROM qrcode");
+		$infoQuery = mysqli_query($connection,"SELECT * FROM qrcode ORDER BY descrizione ASC;");
 		$pdf = new FPDF();
 
 

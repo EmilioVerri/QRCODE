@@ -4,29 +4,29 @@ session_start();
 
 <?php
 
-if ($_SESSION['logged_in']==false) {
-  header('Location: index.php');
-  exit();
-}?>
+if ($_SESSION['logged_in'] == false) {
+    header('Location: index.php');
+    exit();
+} ?>
 
 
 
 <html>
 
-<?php 
+<?php
 
 include "./qrcode.php";
 ?>
 
 <head>
 
-        <title>Qr Generation Form</title>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="stylesheet" href="css/uikit.min.css" />
-        <script src="js/uikit.min.js"></script>
-        <script src="js/uikit-icons.min.js"></script>
-    </head>
+    <title>Qr Generation Form</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="css/uikit.min.css" />
+    <script src="js/uikit.min.js"></script>
+    <script src="js/uikit-icons.min.js"></script>
+</head>
 
 <body class="uk-background-muted uk-padding uk-panel">
     <nav class="uk-navbar-container">
@@ -57,14 +57,29 @@ include "./qrcode.php";
     </nav>
     <div class="uk-container uk-background-muted uk-padding uk-panel">
 
-    <?php estraiQrCodePerModifica();?>
+        <?php estraiQrCodePerModifica(); ?>
+        <script>
+            const inputFields = document.querySelectorAll('input[name="descrizione"]'); // Seleziona tutti gli input con nome "descrizione"
 
+            inputFields.forEach(inputField => {
+                inputField.addEventListener('keyup', function () {
+                    const inputValue = this.value; // Usa "this" per riferirsi al campo input specifico
+                    const regex = /[\s!@#$%^&*()_+=\-=\[\]{};':"\\|,.<>\/?]+/;
+
+                    if (regex.test(inputValue)) {
+                        alert('Sono stati inseriti caratteri speciali o spazi nel campo Numero Procedura. Inserisci solo lettere.');
+                        location.reload(); // Ricarica la pagina
+                    }
+                });
+            });
+        </script>
     </div>
 
 
 
-    <div class="uk-position-top-right uk-overlay uk-overlay-default"><img class='uk-comment-avatar' src='./images/logo.png' width='200' height='300' alt=''></div>
- 
+    <div class="uk-position-top-right uk-overlay uk-overlay-default"><img class='uk-comment-avatar'
+            src='./images/logo.png' width='200' height='300' alt=''></div>
+
 </body>
 
 </html>
